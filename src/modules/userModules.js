@@ -8,7 +8,7 @@ import { DataTypes } from "sequelize"
 export const User = sequelize.define("User", {
 
     name: {
-        type: DataTypes.STRING(100), allowNull: false, unique: true
+        type: DataTypes.STRING(100), allowNull: false, unique: true,
     },
     email: {
         type: DataTypes.STRING(100), unique: true, allowNull: false
@@ -19,21 +19,6 @@ export const User = sequelize.define("User", {
 });
 
 
-//                                      TASK                                             //
-
-
-export const Task = sequelize.define("Task", {
-
-    title: {
-        type: DataTypes.STRING(100), unique: true, allowNull: false
-    },
-    description: {
-        type: DataTypes.STRING(100), allowNull: false
-    },
-    isComplete:{
-        type: DataTypes.BOOLEAN, defaultValue:false
-    }
-});
 
 
 
