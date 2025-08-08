@@ -1,4 +1,3 @@
-
 import { sequelize } from "../config/tasks_users_db.js"
 import { DataTypes } from "sequelize"
 

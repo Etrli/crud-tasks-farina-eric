@@ -1,9 +1,7 @@
 import { sequelize } from "../config/tasks_users_db.js"
 import { DataTypes } from "sequelize"
 
-
 //                                      USER                                             //
-
 
 export const User = sequelize.define("User", {
 
@@ -17,15 +15,3 @@ export const User = sequelize.define("User", {
         type: DataTypes.STRING(100), allowNull: false
     }
 });
-
-
-
-
-
-
-
-
-
-
-
-
