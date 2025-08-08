@@ -1,11 +1,116 @@
 import { Task } from "../modules/taskModules.js";
 
-export const taskCreate = (req,res) =>{
 
-    try {
-        
-    } catch (error) {
-        
+//CrearTask
+export const taskCreate = async (req, res) => {
+  try {
+    const { title, description, isComplete } = req.body;
+
+    const titleExiste = await Task.findOne({ where: { title } });
+
+    if (title === null && title === "" && title === undefined)
+      return res.status(400).json({Message:"El TITULO no puede contener parametros Nulos,Vacíos o Indefinidos"
+    });
+
+    if (typeof isComplete !== "boolean") {
+      return res.status(400).json;
     }
 
-}
+
+
+    const task = await Task.create({title,description,isComplete})
+    if(task){
+        return res.status(200).json ({Message:"Se pudo crear el personaje",task})}
+
+  } catch (error) {Message:"Error por parte del servidor al CREAR las TASK"}
+};
+//
+
+//ObtenerUser
+
+    export const getTask = async() => {
+        try {
+
+             const {title,description,isComplete}= req.body
+
+
+            const task = Task.findAll();
+            if (task) {
+                return res.status(200).json ({Message:"Se obtuvieron todos las TASK",task})}
+
+                return res.status(400).json ({Message:" No se pudo OBTENER la TASK"})
+        } catch(error){Message:"Error al OBTENER la TASK por parte del servidor"}};
+//
+
+
+
+
+//ObtenerUserbyPK
+    export const getTaskbyPK = async(req,res)=>{
+        try {
+
+             const {title,description,isComplete}= req.body
+
+
+            const task = Task.findByPk(req.params.id)
+            if(user) {return res.status(200).json ({Message:"Se encontró la TASK",task})}
+            
+        }catch(error){Message:"Error al Obtener la TASK por parte del servidor"}};
+//
+
+
+
+//ActualizarTask
+export const taskUpdate =async(req,res)=>{
+    try {
+
+         const { title, description, isComplete } = req.body;
+
+
+        if (title === null && title === "" && title === undefined)
+        {return res.status(400).json(
+            {Message:"El Titulo no puede contener parametros Nulos,Vacíos o Indefinidos"}
+        )}; 
+
+
+         if (description === null && description === "" && description === undefined)
+        {return res.status(400).json(
+            {Message:"El Titulo no puede contener parametros Nulos,Vacíos o Indefinidos"}
+        )}; 
+
+        const descriptionLargo = (description)=>{
+        if (description.length>100){
+            description = descriptionLargo
+         console.log("El TITULO es muy largo")
+         return res.status(400).json({message:"EL TITULO no puede contener mas de 100 caracteres"})}};
+
+        const task = Task.update({title,description,isComplete},{where: {id: req.params.id}})
+
+        if (task) {return res.status(201).json({Message:"Se actualizó la TASK",task})}
+        
+        return res.status(400).json ({Message:" No se pudo ACTUALIZAR la TASK"});
+    }catch (error) {Message:"Error por parte del servidor al Actualizar las TASK"}
+};
+//
+
+
+
+//eliminarUser
+    export const taskDelete= async(req,res)=>{
+    try {
+
+         const { title, description, isComplete } = req.body;
+
+
+        const task = await Task.destroy({where:{id: req.params.id}})
+        if(user) {return res.status(200).json({Message:"Se ELIMINÓ con exito la Task"})}
+
+            return res.status(400).json({Message:"No se pudo ELIMINAR la Task"})
+            
+    } catch (error) {
+        return res.status(500).json({Message:"Error por parte del servidor al ELIMINAR la TASK"})
+    }
+};
+//
+
+

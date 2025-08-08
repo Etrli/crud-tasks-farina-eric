@@ -12,47 +12,47 @@ export const createUser = async (req,res) =>{
         );
 
        const nameLargo = (name)=>{
-        if (name.length>100)
+        if (name.length>100){
             name = nameLargo
          console.log("El nombre es muy largo")
-         return res.status(400).json({message:"EL nombre no puede contener mas de 100 caracteres"})};
+         return res.status(400).json({message:"EL nombre no puede contener mas de 100 caracteres"})}};
     //
     //email
-       if (email === null && email === "" && email === undefined)
+       if (email === null && email === "" && email === undefined){
         return res.status(400).json(
             {Message:"El EMAIL no puede contener parametros Nulos,Vacíos o Indefinidos"}
-        ); 
+        )}; 
         
         const emailExiste = await User.findOne({where: {email}})
 
-        if (emailExiste) 
+        if (emailExiste){
          return res.status(400).json(
-            {Message:"Este correo ya está en uso"});
+            {Message:"Este correo ya está en uso"});}
 
 
             
         const emailLargo = (email)=>{
-        if (email.length>100)
+        if (email.length>100){
             email = emailLargo
          console.log("El email es muy largo")
-         return res.status(400).json({message:"EL Email no puede contener mas de 100 caracteres"})};
+         return res.status(400).json({message:"EL Email no puede contener mas de 100 caracteres"})}};
     //
     //password
     
-       if (password === null && password === "" && password === undefined)
+       if (password === null && password === "" && password === undefined){
         return res.status(400).json(
             {Message:"El PASSWORD no puede contener parametros Nulos,Vacíos o Indefinidos"}
-        ); 
+        )}; 
 
         const passwordlLargo = (password)=>{
-        if (password.length>100)
+        if (password.length>100){
             password = passwordlLargo
          console.log("El password es muy largo")
-         return res.status(400).json({message:"EL Password no puede contener mas de 100 caracteres"})};
+         return res.status(400).json({message:"EL Password no puede contener mas de 100 caracteres"})}};
 
     //creandoUser
     const user = User.create({name,email,password})
-    if (user) return res.status(200).json({Message:"Se ha creado el Usuario",user});
+    if (user) {return res.status(200).json({Message:"Se ha creado el Usuario",user})};
 
     return res.status(400).json ({Message:" No se pudo ACTUALIZAR el personaje"})
 
@@ -68,11 +68,16 @@ export const createUser = async (req,res) =>{
 
     export const getUser = async() => {
         try {
+
+             const {name,email,password}= req.body
+
+
             const user = User.findAll();
-            if (user) return res.status(200).json ({Message:"Se obtuvieron todos los Users",user})
+            if (user) {
+                return res.status(200).json ({Message:"Se obtuvieron todos los Users",user})}
 
                 return res.status(400).json ({Message:" No se pudo OBTENER el personaje"})
-        } catch(error){Message:"Error al crear el Personaje por parte del servidor"}};
+        } catch(error){Message:"Error al CREAR el User por parte del servidor"}};
 //
 
 
@@ -85,10 +90,14 @@ export const createUser = async (req,res) =>{
 //ObtenerUserbyPK
     export const getUserbyPK = async(req,res)=>{
         try {
+
+             const {name,email,password}= req.body
+
+
             const user = User.findByPk(req.params.id)
-            if(user) return res.status(200).json ({Message:"Se encontró el user",user})
+            if(user) {return res.status(200).json ({Message:"Se encontró el user",user})}
             
-        }catch(error){Message:"Error al crear el Personaje por parte del servidor"}};
+        }catch(error){Message:"Error al ObtenerbyPK el USER por parte del servidor"}};
 //
 
 
@@ -103,53 +112,52 @@ export const updateUser = async (req, res)=>{
         const {name, email, password} = req.body;
 
     //name
-        if (name === null && name === "" && name === undefined)
+        if (name === null && name === "" && name === undefined){
         return res.status(400).json(
             {Message:"El EMAIL no puede contener parametros Nulos,Vacíos o Indefinidos"}
-        ); 
+        )}; 
 
                const nameLargo = (name)=>{
-        if (name.length>100)
+        if (name.length>100){
             name = nameLargo
          console.log("El nombre es muy largo")
-         return res.status(400).json({message:"EL nombre no puede contener mas de 100 caracteres"})};
+         return res.status(400).json({message:"EL nombre no puede contener mas de 100 caracteres"})}};
     //
     //email
           if (email === null && email === "" && email === undefined)
-        return res.status(400).json(
+        {return res.status(400).json(
             {Message:"El EMAIL no puede contener parametros Nulos,Vacíos o Indefinidos"}
-        ); 
+        )}; 
         
         const emailExiste = await User.findOne({where: {email}})
 
         if (emailExiste) 
-         return res.status(500).json(
-            {Message:"Este correo ya está en uso"});
+         {return res.status(500).json(
+            {Message:"Este correo ya está en uso"})};
 
 
             
         const emailLargo = (email)=>{
-        if (email.length>100)
+        if (email.length>100){
             email = emailLargo
-         console.log("El email es muy largo")
-         return res.status(400).json({message:"EL Email no puede contener mas de 100 caracteres"})};
+         return res.status(400).json({message:"EL Email no puede contener mas de 100 caracteres"})}};
     //
     //password
            if (password === null && password === "" && password === undefined)
-        return res.status(400).json(
+        {return res.status(400).json(
             {Message:"El PASSWORD no puede contener parametros Nulos,Vacíos o Indefinidos"}
-        ); 
+        )}; 
 
         const passwordlLargo = (password)=>{
-        if (password.length>100)
+        if (password.length>100){
             password = passwordlLargo
          console.log("El password es muy largo")
-         return res.status(400).json({message:"EL Password no puede contener mas de 100 caracteres"})};
+         return res.status(400).json({message:"EL Password no puede contener mas de 100 caracteres"})}};
          //
     
         const user = User.update({name,email,password},{where: {id: req.params.id}})
 
-        if (user) return res.status(201).json({Message:"Se actualizó el Personaje"})
+        if (user) {return res.status(201).json({Message:"Se actualizó el Personaje"})}
 
         return res.status(400).json ({Message:" No se pudo ACTUALIZAR el personaje"})
         }catch(error) {Message:"Error al crear el Personaje por parte del servidor"}};
@@ -161,8 +169,12 @@ export const updateUser = async (req, res)=>{
 //eliminarUser
     export const deleteUser = async(req,res)=>{
     try {
+
+         const {name,email,password}= req.body
+
+
         const user = await User.destroy({where:{id: req.params.id}})
-        if(user) return res.status(200).json({Message:"Se ELIMINÓ con exito el User"})
+        if(user) {return res.status(200).json({Message:"Se ELIMINÓ con exito el User"})}
 
             return res.status(400).json({Message:"No se pudo ELIMINAR el User"})
     } catch (error) {
@@ -170,45 +182,3 @@ export const updateUser = async (req, res)=>{
     }
 };
 //
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
