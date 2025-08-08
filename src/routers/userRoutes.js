@@ -1,14 +1,14 @@
 import { Router } from "express";
 import { getUser,getUserbyPK,updateUser,deleteUser,createUser } from "../controllers/userControllers.js";
 
-export const router = Router();
+export const routerUser = Router();
 
-router.post("/api/tasks:",createUser)
+routerUser.post("/api/tasks:",createUser)
 
-router.get("/api/tasks:",getUser)
+routerUser.get("/api/tasks:",getUser)
 
-router.get("/api/tasks/:id:",getUserbyPK)
+routerUser.get("/api/tasks/:id:",getUserbyPK)
 
-router.put("/api/tasks/:id",updateUser)
+routerUser.put("/api/tasks/:id",updateUser)
 
-router.delete("/api/tasks/:id",deleteUser)
+routerUser.delete("/api/tasks/:id",deleteUser)

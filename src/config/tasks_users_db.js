@@ -1,15 +1,28 @@
-import { Sequelize } from "sequelize";
 import  dotenv  from "dotenv";
+import { Sequelize } from "sequelize";
 
 dotenv.config();
+console.log(process.env.DB_DIALECT)
 
 export const sequelize = new Sequelize(
- process.env.DB_PORT,
+
+
  process.env.DB_NAME,
  process.env.DB_USER,
   process.env.DB_PASSWORD,
  {
  host: process.env.DB_HOST,
- dialect: process.env.DB_DIALECT
+ dialect: "mysql"
  }
 );
+
+
+export const startDB = async()=>{
+    try {
+        await sequelize.authenticate(),
+        console.log("Se pudo autenticar")
+        await sequelize.sync();
+    } catch (error) {Message:"Error al autenticar el servidor"
+        
+    }
+}

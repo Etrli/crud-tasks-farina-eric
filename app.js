@@ -1,5 +1,8 @@
 import express from "express"
 import dotenv from "dotenv"
+import { routerTask } from "./src/routers/taskRoutes.js"
+import { routerUser } from "./src/routers/userRoutes.js"
+import { startDB } from "./src/config/tasks_users_db.js"
 
 dotenv.config()
 
@@ -7,8 +10,13 @@ dotenv.config()
 const app = express()
 const PORT = process.env.PORT
 
+app.use(express.json())
+app.use("/",routerTask)
+app.use("/",routerUser)
 
 
-app.listen(PORT, () => {
-  console.log(`Example app listening on port http://localhost:${PORT}`)
+startDB().then(()=>{
+    app.listen(PORT, () => {
+  console.log(`Ejecutandose en el servidor http://localhost:${PORT}`)
 })
+});
